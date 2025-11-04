@@ -1,0 +1,17 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+model_pipeline.pkl
+best_model.pkl
+*.pkl
+env/
+/.vscode/
+/.idea/
+dist/
+build/
+.DS_Store
+*.egg-info/
