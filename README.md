@@ -184,8 +184,6 @@ The web interface uses a **dark glassmorphism** design language:
 
 - **Muhammad Usman**
 - **Abdullah**
-- **Inayatullah**
-- **Afzal**
 
 ---
 

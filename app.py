@@ -439,9 +439,8 @@ if st.session_state.page == "landing":
         <div class="hero-container">
             <span class="hero-badge">🎓 AI-Powered Career Guidance</span>
             <div class="hero-title">Discover Your<br>Career Path</div>
-            <p class="hero-subtitle">
-                Leverage machine learning to predict the best career aspirations
-                based on your academic profile, study habits, and personal traits.
+            <p style="font-size:1.25rem; color:#E0E0F0 !important; max-width:700px; margin:0 auto 40px; line-height:1.8; text-align:center; font-weight:500; letter-spacing:0.3px;">
+                Leverage machine learning to predict the best career aspirations based on your academic profile, study habits, and personal traits.
             </p>
         </div>
         """,
