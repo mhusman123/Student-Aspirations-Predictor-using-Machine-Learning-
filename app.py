@@ -401,10 +401,13 @@ def inject_css():
 
 
 # ─── Load model ───
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 @st.cache_resource
 def load_model(path="model_pipeline.pkl"):
     try:
-        with open(path, "rb") as f:
+        full_path = os.path.join(BASE_DIR, path)
+        with open(full_path, "rb") as f:
             return pickle.load(f)
     except Exception:
         return None
