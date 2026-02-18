@@ -5,9 +5,7 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ipynb_checkpoints/
-model_pipeline.pkl
-best_model.pkl
-*.pkl
+# model_pipeline.pkl is auto-generated at runtime
 env/
 /.vscode/
 /.idea/

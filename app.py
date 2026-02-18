@@ -5,6 +5,10 @@ import pickle
 import plotly.express as px
 import plotly.graph_objects as go
 import os
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
 
 # ─── Page config ───
 st.set_page_config(
@@ -400,17 +404,38 @@ def inject_css():
     """, unsafe_allow_html=True)
 
 
-# ─── Load model ───
+# ─── Paths ───
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "model_pipeline.pkl")
+TRAIN_DATA_PATH = os.path.join(BASE_DIR, "train_data.csv")
+
+
+def train_and_save_model():
+    """Auto-train the model if model_pipeline.pkl is missing."""
+    if not os.path.exists(TRAIN_DATA_PATH):
+        return None
+    train_data = pd.read_csv(TRAIN_DATA_PATH)
+    X = train_data.drop("target", axis=1)
+    y = train_data["target"]
+    X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
+    pipeline = Pipeline([
+        ("scaler", StandardScaler()),
+        ("clf", RandomForestClassifier(n_estimators=200, class_weight="balanced", random_state=42)),
+    ])
+    pipeline.fit(X_train, y_train)
+    with open(MODEL_PATH, "wb") as f:
+        pickle.dump(pipeline, f)
+    return pipeline
+
 
 @st.cache_resource
-def load_model(path="model_pipeline.pkl"):
-    try:
-        full_path = os.path.join(BASE_DIR, path)
-        with open(full_path, "rb") as f:
+def load_model():
+    """Load model from disk, or auto-train if missing."""
+    if os.path.exists(MODEL_PATH):
+        with open(MODEL_PATH, "rb") as f:
             return pickle.load(f)
-    except Exception:
-        return None
+    # Auto-train on first run (e.g. Streamlit Cloud)
+    return train_and_save_model()
 
 
 # ─── Footer ───
@@ -548,8 +573,8 @@ elif st.session_state.page == "predictor":
     model = load_model()
     if model is None:
         st.error(
-            "⚠️  Model file `model_pipeline.pkl` not found. "
-            "Run `python train_and_save_model.py` first."
+            "⚠️  Could not load or train the model. "
+            "Make sure `train_data.csv` exists in the repo."
         )
         st.stop()
 
