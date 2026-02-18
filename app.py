@@ -442,9 +442,9 @@ def load_model():
 def render_footer():
     st.markdown(
         """<div class='app-footer'>
-            Built with ❤️ using <a href='https://streamlit.io' target='_blank'>Streamlit</a> &amp;
+            Built with passion using <a href='https://streamlit.io' target='_blank'>Streamlit</a> &amp;
             <a href='https://scikit-learn.org' target='_blank'>Scikit-Learn</a> &nbsp;·&nbsp;
-            &copy; 2026 <strong style='color:#A29BFE !important'>Muhammad Usman Mahar</strong>
+            &copy; 2026 <strong style='color:#A29BFE !important'>Muhammad Usman </strong>
         </div>""",
         unsafe_allow_html=True,
     )
